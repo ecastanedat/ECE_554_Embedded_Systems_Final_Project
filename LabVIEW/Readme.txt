@@ -1,0 +1,1 @@
+This directory contains the TCP client for the ECE 554 Final Project

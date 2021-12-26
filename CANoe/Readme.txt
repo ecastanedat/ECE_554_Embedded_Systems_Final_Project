@@ -1,0 +1,1 @@
+This directory contains the CANoe simulator for the ECE 554 Final Project
