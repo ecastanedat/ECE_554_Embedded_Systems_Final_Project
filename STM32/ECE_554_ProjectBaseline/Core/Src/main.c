@@ -2,7 +2,7 @@
 /**
   ******************************************************************************
   * @file           : main.c
-  * @brief          : Main program body for ECE 554 Embedded Systems
+  * @brief          : Main program body for ECE 554 Embedded Systems at UM Dearborn.
   ******************************************************************************
   * @attention
   *
@@ -52,11 +52,8 @@ typedef enum{
 /* Private variables ---------------------------------------------------------*/
 
 FDCAN_HandleTypeDef hfdcan1;
-
 SPI_HandleTypeDef hspi1;
-
 TIM_HandleTypeDef htim6;
-
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
@@ -134,11 +131,12 @@ int main(void)
   MX_FDCAN1_Init();
   MX_TIM6_Init();
   MX_SPI1_Init();
+
   /* USER CODE BEGIN 2 */
   ST7735_Init(0);
   fillScreen(BLACK);
   tcp_server_init();
-  testAll();
+  //testAll();
 
   //Start Timer
   HAL_TIM_Base_Start(&htim6);
@@ -165,13 +163,13 @@ int main(void)
 	  {
 		  case INIT: print_to_serial("Ethernet + CAN!\r\n");
 		  	  	  	 ST7735_SetRotation(2);
-		  			 ST7735_WriteString(0, 0, "Hello Ethernet!", Font_11x18, RED,BLACK);
-		  			 ST7735_WriteString(0, 20, "Hello CAN!", Font_11x18, RED,BLACK);
-		  			 ST7735_WriteString(0, 40, "Hello SPI!", Font_11x18, RED,BLACK);
+		  			 ST7735_WriteString(0, 0, "Hello Ethernet!", Font_7x10, WHITE,BLACK);
+		  			 ST7735_WriteString(0, 12, "Hello CAN!", Font_7x10, WHITE,BLACK);
+		  			 ST7735_WriteString(0, 22, "Hello SPI!", Font_7x10, WHITE,BLACK);
 					 state = IDLE;
 					 break;
 
-		  case IDLE: //print_to_serial(globalCluster.myString);
+		  case IDLE:
 			  	  	 ethernetif_input(&gnetif);
 					 sys_check_timeouts();
 
@@ -598,6 +596,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+/**
+  * @brief print_to_serial
+  * @param String to be printed to serial port
+  * @retval None
+  */
 static void print_to_serial(char *myString)
 {
 	uint8_t buffer[100];
@@ -607,7 +610,11 @@ static void print_to_serial(char *myString)
 
 }
 
-
+/**
+  * @brief Toggle_CAN_Data
+  * @param None
+  * @retval None
+  */
 static void Toggle_CAN_Data(void)
 {
 	if(myTxData[0] == 0x00)
@@ -616,7 +623,6 @@ static void Toggle_CAN_Data(void)
         myTxData[1] = 0x00;
 		myTxData[2] = 0xFF;
 		myTxData[3] = 0x00;
-
 	}
 	else
 	{
