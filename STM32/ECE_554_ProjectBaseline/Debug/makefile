@@ -70,8 +70,8 @@ all: main-build
 main-build: ECE_554_ProjectBaseline.elf secondary-outputs
 
 # Tool invocations
-ECE_554_ProjectBaseline.elf: $(OBJS) $(USER_OBJS) Y:\Esteban\099_BuffaloBackup\Respaldos\Respaldo\ Escuela\UM\ Dearborn\ECE_554_Embedded_Systems\001_Final_Project\STM32\ECE_554_ProjectBaseline\STM32H723ZGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "ECE_554_ProjectBaseline.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"Y:\Esteban\099_BuffaloBackup\Respaldos\Respaldo Escuela\UM Dearborn\ECE_554_Embedded_Systems\001_Final_Project\STM32\ECE_554_ProjectBaseline\STM32H723ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECE_554_ProjectBaseline.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+ECE_554_ProjectBaseline.elf: $(OBJS) $(USER_OBJS) E:\Shared_HDD\Esteban\099_BuffaloBackup\Respaldos\Respaldo\ Escuela\UM\ Dearborn\ECE_554_Embedded_Systems\001_Final_Project\STM32\ECE_554_ProjectBaseline\STM32H723ZGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "ECE_554_ProjectBaseline.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"E:\Shared_HDD\Esteban\099_BuffaloBackup\Respaldos\Respaldo Escuela\UM Dearborn\ECE_554_Embedded_Systems\001_Final_Project\STM32\ECE_554_ProjectBaseline\STM32H723ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECE_554_ProjectBaseline.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

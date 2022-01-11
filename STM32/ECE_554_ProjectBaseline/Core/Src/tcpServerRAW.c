@@ -479,7 +479,7 @@ static void tcp_server_handle(struct tcp_pcb *tpcb, struct tcp_server_struct *es
 	esTx->p = es->p;
 
 	char buf[100];
-	memset(buf, '\0', 100);
+	memset (buf, '\0', 100);
 
 	strncpy(buf, (char *)es->p->payload, es->p->tot_len);
 	strncpy(globalCluster.myString, (char *)es->p->payload, es->p->tot_len);

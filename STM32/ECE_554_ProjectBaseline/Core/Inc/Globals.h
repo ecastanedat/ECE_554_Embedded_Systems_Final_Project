@@ -16,5 +16,8 @@ struct dataOverhead
 
 }globalCluster;
 
+FDCAN_TxHeaderTypeDef TxHeader;
+FDCAN_RxHeaderTypeDef RxHeader;
+uint8_t myTxData[8];
 
 #endif /* INC_GLOBALS_H_ */

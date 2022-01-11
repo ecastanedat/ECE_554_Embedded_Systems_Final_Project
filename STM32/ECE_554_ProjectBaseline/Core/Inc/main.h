@@ -100,6 +100,9 @@ void Error_Handler(void);
 #define SWDIO_GPIO_Port GPIOA
 #define SWCLK_Pin GPIO_PIN_14
 #define SWCLK_GPIO_Port GPIOA
+#define BTN1_Pin GPIO_PIN_10
+#define BTN1_GPIO_Port GPIOC
+#define BTN1_EXTI_IRQn EXTI15_10_IRQn
 #define RMII_TX_EN_Pin GPIO_PIN_11
 #define RMII_TX_EN_GPIO_Port GPIOG
 #define RMII_TXD0_Pin GPIO_PIN_13

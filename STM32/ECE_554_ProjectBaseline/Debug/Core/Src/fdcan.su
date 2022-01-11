@@ -1,0 +1,5 @@
+fdcan.c:30:6:MX_FDCAN1_Init	8	static
+fdcan.c:78:6:HAL_FDCAN_MspInit	224	static
+fdcan.c:126:6:HAL_FDCAN_MspDeInit	16	static
+fdcan.c:154:6:FDCAN1_MSG_config	48	static
+fdcan.c:195:6:Toggle_CAN_Data	4	static

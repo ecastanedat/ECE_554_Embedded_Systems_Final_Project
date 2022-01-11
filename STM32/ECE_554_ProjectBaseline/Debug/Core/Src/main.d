@@ -36,6 +36,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
+ ../Core/Inc/fdcan.h ../Core/Inc/main.h ../Core/Inc/Globals.h \
  ../LWIP/App/lwip.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
  ../LWIP/Target/lwipopts.h \
@@ -67,8 +68,10 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/src/include/netif/ethernet.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h \
- ../LWIP/Target/ethernetif.h ../Core/Inc/ST7735.h ../Core/Inc/fonts.h \
- ../Core/Inc/GFX_FUNCTIONS.h ../Core/Inc/tcpServerRAW.h
+ ../LWIP/Target/ethernetif.h ../Core/Inc/spi.h ../Core/Inc/tim.h \
+ ../Core/Inc/usart.h ../Core/Inc/usb_otg.h ../Core/Inc/gpio.h \
+ ../Core/Inc/ST7735.h ../Core/Inc/fonts.h ../Core/Inc/GFX_FUNCTIONS.h \
+ ../Core/Inc/tcpServerRAW.h ../Core/Inc/Globals.h
 
 ../Core/Inc/main.h:
 
@@ -146,6 +149,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 
+../Core/Inc/fdcan.h:
+
+../Core/Inc/main.h:
+
+../Core/Inc/Globals.h:
+
 ../LWIP/App/lwip.h:
 
 ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
@@ -210,6 +219,16 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../LWIP/Target/ethernetif.h:
 
+../Core/Inc/spi.h:
+
+../Core/Inc/tim.h:
+
+../Core/Inc/usart.h:
+
+../Core/Inc/usb_otg.h:
+
+../Core/Inc/gpio.h:
+
 ../Core/Inc/ST7735.h:
 
 ../Core/Inc/fonts.h:
@@ -217,3 +236,5 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/GFX_FUNCTIONS.h:
 
 ../Core/Inc/tcpServerRAW.h:
+
+../Core/Inc/Globals.h:
