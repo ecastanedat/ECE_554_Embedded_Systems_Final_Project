@@ -144,5 +144,12 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 2 */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if(GPIO_Pin == BTN1_Pin) /* Interrupt only for BTN1_Pin (1st button from left to right in the breadboard) */
+	{
+		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+	}
 
+}
 /* USER CODE END 2 */
