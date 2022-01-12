@@ -55,7 +55,6 @@
 
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
-osThreadId Task2Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -63,7 +62,6 @@ osThreadId Task2Handle;
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
-void Task2_init(void const * argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -112,12 +110,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
-
-  /* definition and creation of Task2 */
-  osThreadDef(Task2, Task2_init, osPriorityNormal, 0, 128);
-  Task2Handle = osThreadCreate(osThread(Task2), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -136,8 +130,6 @@ void StartDefaultTask(void const * argument)
 {
   /* init code for LWIP */
   MX_LWIP_Init();
-  //tcp_server_init();
-
   /* USER CODE BEGIN StartDefaultTask */
   SM_STATES state = INIT;
 
@@ -147,61 +139,36 @@ void StartDefaultTask(void const * argument)
   //Get current time
   timer_val = __HAL_TIM_GET_COUNTER(&htim6);
 
+  //Start the TCP Server
+  tcp_server_init();
+
   /* Infinite loop */
   for(;;)
   {
-	  switch(state)
+	  if(state == INIT)
 	  {
-		  case INIT: //print_to_serial("Ethernet + CAN!\r\n");
-					 ST7735_SetRotation(2);
-					 ST7735_WriteString(0, 0, "Hello Ethernet!", Font_7x10, WHITE,BLACK);
-					 ST7735_WriteString(0, 12, "Hello CAN!", Font_7x10, WHITE,BLACK);
-					 ST7735_WriteString(0, 24, "Hello SPI!", Font_7x10, WHITE,BLACK);
-					 state = IDLE;
-					 break;
+		  ST7735_SetRotation(2);
+		  ST7735_WriteString(0, 0, "Hello Ethernet!", Font_7x10, WHITE,BLACK);
+		  ST7735_WriteString(0, 12, "Hello CAN!", Font_7x10, WHITE,BLACK);
+		  ST7735_WriteString(0, 24, "Hello SPI!", Font_7x10, WHITE,BLACK);
+		  state = IDLE;
+	  }
+	  else if(state == IDLE)
+	  {
+		  if(__HAL_TIM_GET_COUNTER(&htim6) - timer_val >= 10000)
+		  {
+			  HAL_GPIO_TogglePin(GPIOE, GPIO_PIN_1);
+			  timer_val = __HAL_TIM_GET_COUNTER(&htim6);
 
-		  case IDLE:
-					 //ethernetif_input(&gnetif);
-					 sys_check_timeouts();
-
-
-					 if(__HAL_TIM_GET_COUNTER(&htim6) - timer_val >= 10000)
-					 {
-						  HAL_GPIO_TogglePin(GPIOE, GPIO_PIN_1);
-						  timer_val = __HAL_TIM_GET_COUNTER(&htim6);
-
-						  HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, myTxData);
-						  Toggle_CAN_Data();
-					 }
-
-					 state = IDLE;
-					 break;
-
-		  case STATE_2: break;
-		  default: break;
+			  HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, myTxData);
+			  Toggle_CAN_Data();
+		  }
+		  state = IDLE;
 	  }
 
 	  osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
-}
-
-/* USER CODE BEGIN Header_Task2_init */
-/**
-* @brief Function implementing the Task2 thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_Task2_init */
-void Task2_init(void const * argument)
-{
-  /* USER CODE BEGIN Task2_init */
-  /* Infinite loop */
-  for(;;)
-  {
-	  osDelay(1);
-  }
-  /* USER CODE END Task2_init */
 }
 
 /* Private application code --------------------------------------------------*/
