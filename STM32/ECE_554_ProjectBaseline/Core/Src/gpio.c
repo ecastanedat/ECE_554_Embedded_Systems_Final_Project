@@ -22,7 +22,7 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "Globals.h"
 /* USER CODE END 0 */
 
 /*----------------------------------------------------------------------------*/
@@ -138,7 +138,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(LED_YELLOW_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
@@ -149,6 +149,19 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if(GPIO_Pin == BTN1_Pin) /* Interrupt only for BTN1_Pin (1st button from left to right in the breadboard) */
 	{
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+
+		if(globalCluster.btn1_flag == 0)
+		{
+			fillScreen(BLACK);
+			ST7735_WriteString(0, 0, "BTN1 ON!", Font_11x18, RED,BLACK);
+			globalCluster.btn1_flag = 1;
+		}
+		else
+		{
+			fillScreen(BLACK);
+			ST7735_WriteString(0, 0, "BTN1 OFF!", Font_11x18, RED,BLACK);
+			globalCluster.btn1_flag = 0;
+		}
 	}
 
 }

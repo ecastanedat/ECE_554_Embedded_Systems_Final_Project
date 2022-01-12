@@ -29,6 +29,8 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
+#include "GFX_FUNCTIONS.h"
+#include "ST7735.h"
 
 /* USER CODE END Includes */
 

@@ -13,8 +13,20 @@
 struct dataOverhead
 {
 	char myString[100];
+	uint16_t btn1_flag;
 
 }globalCluster;
+
+typedef enum{
+	INIT,
+	IDLE,
+	STATE_2,
+	EXIT
+}SM_STATES;
+
+uint16_t timer_val;
+
+extern struct netif gnetif;
 
 FDCAN_TxHeaderTypeDef TxHeader;
 FDCAN_RxHeaderTypeDef RxHeader;

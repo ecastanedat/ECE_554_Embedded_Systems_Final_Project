@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "fdcan.h"
 #include "lwip.h"
 #include "spi.h"
@@ -38,12 +39,6 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef enum{
-	INIT,
-	IDLE,
-	STATE_2,
-	EXIT
-}SM_STATES;
 
 /* USER CODE END PTD */
 
@@ -59,13 +54,13 @@ typedef enum{
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint16_t timer_val;
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MPU_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 static void print_to_serial(char *myString);
 
@@ -73,7 +68,6 @@ static void print_to_serial(char *myString);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-extern struct netif gnetif;
 
 /* USER CODE END 0 */
 
@@ -84,7 +78,6 @@ extern struct netif gnetif;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  SM_STATES state = INIT;
 
   /* USER CODE END 1 */
 
@@ -117,7 +110,6 @@ int main(void)
   MX_GPIO_Init();
   MX_USART3_UART_Init();
   MX_USB_OTG_HS_USB_Init();
-  MX_LWIP_Init();
   MX_FDCAN1_Init();
   MX_TIM6_Init();
   MX_SPI1_Init();
@@ -125,17 +117,17 @@ int main(void)
   FDCAN1_MSG_config();
   ST7735_Init(0);
   fillScreen(BLACK);
-  tcp_server_init();
   //testAll();
-
-  //Start Timer
-  HAL_TIM_Base_Start(&htim6);
-
-  //Get current time
-  timer_val = __HAL_TIM_GET_COUNTER(&htim6);
 
   /* USER CODE END 2 */
 
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -143,37 +135,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  switch(state)
-	  {
-		  case INIT: print_to_serial("Ethernet + CAN!\r\n");
-		  	  	  	 ST7735_SetRotation(2);
-		  			 ST7735_WriteString(0, 0, "Hello Ethernet!", Font_11x18, RED,BLACK);
-		  			 ST7735_WriteString(0, 20, "Hello CAN!", Font_11x18, RED,BLACK);
-		  			 ST7735_WriteString(0, 40, "Hello SPI!", Font_11x18, RED,BLACK);
-					 state = IDLE;
-					 break;
-
-		  case IDLE:
-			  	  	 ethernetif_input(&gnetif);
-					 sys_check_timeouts();
-
-					 if(__HAL_TIM_GET_COUNTER(&htim6) - timer_val >= 10000)
-					 {
-					   	  HAL_GPIO_TogglePin(GPIOE, GPIO_PIN_1);
-					   	  timer_val = __HAL_TIM_GET_COUNTER(&htim6);
-
-					   	  HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &TxHeader, myTxData);
-					   	  Toggle_CAN_Data();
-					 }
-
-					 state = IDLE;
-					 break;
-
-		  case STATE_2: break;
-
-		  default: break;
-	  }
-
   }
   /* USER CODE END 3 */
 }
@@ -275,6 +236,27 @@ void MPU_Config(void)
   /* Enables the MPU */
   HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
 
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM1 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM1) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
 }
 
 /**
