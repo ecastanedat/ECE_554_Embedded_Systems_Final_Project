@@ -6,6 +6,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/GFX_FUNCTIONS.c \
+../Core/Src/Globals.c \
 ../Core/Src/ST7735.c \
 ../Core/Src/fdcan.c \
 ../Core/Src/fonts.c \
@@ -26,6 +27,7 @@ C_SRCS += \
 
 OBJS += \
 ./Core/Src/GFX_FUNCTIONS.o \
+./Core/Src/Globals.o \
 ./Core/Src/ST7735.o \
 ./Core/Src/fdcan.o \
 ./Core/Src/fonts.o \
@@ -46,6 +48,7 @@ OBJS += \
 
 C_DEPS += \
 ./Core/Src/GFX_FUNCTIONS.d \
+./Core/Src/Globals.d \
 ./Core/Src/ST7735.d \
 ./Core/Src/fdcan.d \
 ./Core/Src/fonts.d \
@@ -72,7 +75,7 @@ Core/Src/%.o: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/GFX_FUNCTIONS.d ./Core/Src/GFX_FUNCTIONS.o ./Core/Src/ST7735.d ./Core/Src/ST7735.o ./Core/Src/fdcan.d ./Core/Src/fdcan.o ./Core/Src/fonts.d ./Core/Src/fonts.o ./Core/Src/freertos.d ./Core/Src/freertos.o ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/spi.d ./Core/Src/spi.o ./Core/Src/stm32h7xx_hal_msp.d ./Core/Src/stm32h7xx_hal_msp.o ./Core/Src/stm32h7xx_hal_timebase_tim.d ./Core/Src/stm32h7xx_hal_timebase_tim.o ./Core/Src/stm32h7xx_it.d ./Core/Src/stm32h7xx_it.o ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/system_stm32h7xx.d ./Core/Src/system_stm32h7xx.o ./Core/Src/tcpServerRAW.d ./Core/Src/tcpServerRAW.o ./Core/Src/tim.d ./Core/Src/tim.o ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usb_otg.d ./Core/Src/usb_otg.o
+	-$(RM) ./Core/Src/GFX_FUNCTIONS.d ./Core/Src/GFX_FUNCTIONS.o ./Core/Src/Globals.d ./Core/Src/Globals.o ./Core/Src/ST7735.d ./Core/Src/ST7735.o ./Core/Src/fdcan.d ./Core/Src/fdcan.o ./Core/Src/fonts.d ./Core/Src/fonts.o ./Core/Src/freertos.d ./Core/Src/freertos.o ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/spi.d ./Core/Src/spi.o ./Core/Src/stm32h7xx_hal_msp.d ./Core/Src/stm32h7xx_hal_msp.o ./Core/Src/stm32h7xx_hal_timebase_tim.d ./Core/Src/stm32h7xx_hal_timebase_tim.o ./Core/Src/stm32h7xx_it.d ./Core/Src/stm32h7xx_it.o ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/system_stm32h7xx.d ./Core/Src/system_stm32h7xx.o ./Core/Src/tcpServerRAW.d ./Core/Src/tcpServerRAW.o ./Core/Src/tim.d ./Core/Src/tim.o ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usb_otg.d ./Core/Src/usb_otg.o
 
 .PHONY: clean-Core-2f-Src
 

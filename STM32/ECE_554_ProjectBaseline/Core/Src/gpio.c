@@ -153,13 +153,13 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		if(globalCluster.btn1_flag == 0)
 		{
 			fillScreen(BLACK);
-			ST7735_WriteString(0, 0, "BTN1 ON!", Font_11x18, RED,BLACK);
+			ST7735_WriteString(0, 0, "BTN1 ON!", Font_7x10, WHITE,BLACK);
 			globalCluster.btn1_flag = 1;
 		}
 		else
 		{
 			fillScreen(BLACK);
-			ST7735_WriteString(0, 0, "BTN1 OFF!", Font_11x18, RED,BLACK);
+			ST7735_WriteString(0, 0, "BTN1 OFF!", Font_7x10, BLACK,WHITE);
 			globalCluster.btn1_flag = 0;
 		}
 	}

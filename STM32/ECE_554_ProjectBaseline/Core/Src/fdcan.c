@@ -161,6 +161,11 @@ void FDCAN1_MSG_config(void)
 	myTxData[2] = 0xFF;
 	myTxData[3] = 0x00;
 
+	myTxData[4] = 0xFF;
+	myTxData[5] = 0x00;
+	myTxData[6] = 0xFF;
+	myTxData[7] = 0x00;
+
 	/* Configure Rx filter */
 	sFilterConfig.IdType = FDCAN_STANDARD_ID;
 	sFilterConfig.FilterIndex = 0;
@@ -201,6 +206,11 @@ void Toggle_CAN_Data(void)
 		myTxData[2] = 0xFF;
 		myTxData[3] = 0x00;
 
+		myTxData[4] = 0xFF;
+		myTxData[5] = 0x00;
+		myTxData[6] = 0xFF;
+		myTxData[7] = 0x00;
+
 	}
 	else
 	{
@@ -208,6 +218,11 @@ void Toggle_CAN_Data(void)
 		myTxData[1] = 0xFF;
 		myTxData[2] = 0x00;
 		myTxData[3] = 0xFF;
+
+		myTxData[4] = 0x00;
+		myTxData[5] = 0xFF;
+		myTxData[6] = 0x00;
+		myTxData[7] = 0xFF;
 	}
 }
 /* USER CODE END 1 */

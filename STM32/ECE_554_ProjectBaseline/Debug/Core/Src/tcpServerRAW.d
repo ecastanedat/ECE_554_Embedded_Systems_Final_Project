@@ -66,7 +66,7 @@ Core/Src/tcpServerRAW.o: ../Core/Src/tcpServerRAW.c \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/icmp.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/prot/icmp.h \
- ../Core/Inc/Globals.h ../Core/Inc/main.h
+ ../Core/Inc/Globals.h ../Core/Inc/main.h ../Core/Inc/usart.h
 
 ../Core/Inc/tcpserverRAW.h:
 
@@ -207,3 +207,5 @@ Core/Src/tcpServerRAW.o: ../Core/Src/tcpServerRAW.c \
 ../Core/Inc/Globals.h:
 
 ../Core/Inc/main.h:
+
+../Core/Inc/usart.h:

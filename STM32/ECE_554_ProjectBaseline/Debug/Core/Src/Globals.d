@@ -1,4 +1,4 @@
-Core/Src/fdcan.o: ../Core/Src/fdcan.c ../Core/Inc/fdcan.h \
+Core/Src/Globals.o: ../Core/Src/Globals.c ../Core/Inc/Globals.h \
  ../Core/Inc/main.h ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
@@ -36,9 +36,9 @@ Core/Src/fdcan.o: ../Core/Src/fdcan.c ../Core/Inc/fdcan.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- ../Core/Inc/Globals.h ../Core/Inc/usart.h
+ ../Core/Inc/usart.h
 
-../Core/Inc/fdcan.h:
+../Core/Inc/Globals.h:
 
 ../Core/Inc/main.h:
 
@@ -115,7 +115,5 @@ Core/Src/fdcan.o: ../Core/Src/fdcan.c ../Core/Inc/fdcan.h \
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h:
 
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
-
-../Core/Inc/Globals.h:
 
 ../Core/Inc/usart.h:

@@ -37,7 +37,7 @@ Core/Src/gpio.o: ../Core/Src/gpio.c ../Core/Inc/gpio.h ../Core/Inc/main.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  ../Core/Inc/GFX_FUNCTIONS.h ../Core/Inc/ST7735.h ../Core/Inc/fonts.h \
- ../Core/Inc/Globals.h
+ ../Core/Inc/Globals.h ../Core/Inc/usart.h
 
 ../Core/Inc/gpio.h:
 
@@ -124,3 +124,5 @@ Core/Src/gpio.o: ../Core/Src/gpio.c ../Core/Inc/gpio.h ../Core/Inc/main.h \
 ../Core/Inc/fonts.h:
 
 ../Core/Inc/Globals.h:
+
+../Core/Inc/usart.h:

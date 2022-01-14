@@ -54,9 +54,9 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Core/Inc/fdcan.h ../Core/Inc/main.h ../Core/Inc/Globals.h \
- ../Core/Inc/Globals.h ../Core/Inc/ST7735.h ../Core/Inc/fonts.h \
- ../Core/Inc/GFX_FUNCTIONS.h ../Core/Inc/tcpServerRAW.h \
- ../LWIP/App/lwip.h \
+ ../Core/Inc/usart.h ../Core/Inc/Globals.h ../Core/Inc/ST7735.h \
+ ../Core/Inc/fonts.h ../Core/Inc/GFX_FUNCTIONS.h \
+ ../Core/Inc/tcpServerRAW.h ../LWIP/App/lwip.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h \
  ../LWIP/Target/lwipopts.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/debug.h \
@@ -208,6 +208,8 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Core/Inc/main.h:
 
 ../Core/Inc/Globals.h:
+
+../Core/Inc/usart.h:
 
 ../Core/Inc/Globals.h:
 

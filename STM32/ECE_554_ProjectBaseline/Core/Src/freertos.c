@@ -55,6 +55,7 @@
 
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
+osThreadId Task02Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -62,6 +63,7 @@ osThreadId defaultTaskHandle;
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
+void Task02_Init(void const * argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -113,6 +115,10 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
+  /* definition and creation of Task02 */
+  osThreadDef(Task02, Task02_Init, osPriorityNormal, 0, 128);
+  Task02Handle = osThreadCreate(osThread(Task02), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -147,6 +153,7 @@ void StartDefaultTask(void const * argument)
   {
 	  if(state == INIT)
 	  {
+		  print_to_serial("Hello FreeRTOS!");
 		  ST7735_SetRotation(2);
 		  ST7735_WriteString(0, 0, "Hello Ethernet!", Font_7x10, WHITE,BLACK);
 		  ST7735_WriteString(0, 12, "Hello CAN!", Font_7x10, WHITE,BLACK);
@@ -155,7 +162,7 @@ void StartDefaultTask(void const * argument)
 	  }
 	  else if(state == IDLE)
 	  {
-		  if(__HAL_TIM_GET_COUNTER(&htim6) - timer_val >= 10000)
+		  if(__HAL_TIM_GET_COUNTER(&htim6) - timer_val >= 2500)
 		  {
 			  HAL_GPIO_TogglePin(GPIOE, GPIO_PIN_1);
 			  timer_val = __HAL_TIM_GET_COUNTER(&htim6);
@@ -169,6 +176,25 @@ void StartDefaultTask(void const * argument)
 	  osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
+}
+
+/* USER CODE BEGIN Header_Task02_Init */
+/**
+* @brief Function implementing the Task02 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Task02_Init */
+void Task02_Init(void const * argument)
+{
+  /* USER CODE BEGIN Task02_Init */
+  /* Infinite loop */
+  for(;;)
+  {
+	  print_to_serial("Im task2!");
+	  osDelay(1000);
+  }
+  /* USER CODE END Task02_Init */
 }
 
 /* Private application code --------------------------------------------------*/

@@ -30,7 +30,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "string.h"
 #include "ST7735.h"
 #include "GFX_FUNCTIONS.h"
 #include "tcpServerRAW.h"
@@ -62,7 +61,6 @@ void SystemClock_Config(void);
 static void MPU_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-static void print_to_serial(char *myString);
 
 /* USER CODE END PFP */
 
@@ -198,14 +196,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-static void print_to_serial(char *myString)
-{
-	uint8_t buffer[100];
-
-	strcpy((char*)buffer, myString);
-	HAL_UART_Transmit(&huart3, buffer, strlen((char*)buffer), HAL_MAX_DELAY);
-
-}
 
 /* USER CODE END 4 */
 
