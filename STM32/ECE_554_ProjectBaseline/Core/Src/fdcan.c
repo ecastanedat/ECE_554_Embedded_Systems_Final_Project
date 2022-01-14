@@ -117,6 +117,9 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* fdcanHandle)
     GPIO_InitStruct.Alternate = GPIO_AF9_FDCAN1;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
+    /* FDCAN1 interrupt Init */
+    HAL_NVIC_SetPriority(FDCAN1_IT0_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
   /* USER CODE BEGIN FDCAN1_MspInit 1 */
 
   /* USER CODE END FDCAN1_MspInit 1 */
@@ -140,6 +143,8 @@ void HAL_FDCAN_MspDeInit(FDCAN_HandleTypeDef* fdcanHandle)
     */
     HAL_GPIO_DeInit(GPIOD, GPIO_PIN_0|GPIO_PIN_1);
 
+    /* FDCAN1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(FDCAN1_IT0_IRQn);
   /* USER CODE BEGIN FDCAN1_MspDeInit 1 */
 
   /* USER CODE END FDCAN1_MspDeInit 1 */
@@ -171,17 +176,17 @@ void FDCAN1_MSG_config(void)
 	sFilterConfig.FilterIndex = 0;
 	sFilterConfig.FilterType = FDCAN_FILTER_MASK;
 	sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-	sFilterConfig.FilterID1 = 0x123;
+	sFilterConfig.FilterID1 = 0x124;
 	sFilterConfig.FilterID2 = 0x7FF;
 	HAL_FDCAN_ConfigFilter(&hfdcan1, &sFilterConfig);
-
 
 	/* Configure global filter to reject all non-matching frames */
 	HAL_FDCAN_ConfigGlobalFilter(&hfdcan1, FDCAN_REJECT, FDCAN_REJECT, FDCAN_REJECT_REMOTE, FDCAN_REJECT_REMOTE);
 
-	/* Start the FDCAN module */
-	HAL_FDCAN_Start(&hfdcan1);
+	/* Configure Rx FIFO 0 watermark to 2 */
+	HAL_FDCAN_ConfigFifoWatermark(&hfdcan1, FDCAN_CFG_RX_FIFO0, 1);
 
+	/* Activate Rx FIFO 0 watermark notification */
 	HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
 
 	/* Prepare Tx Header */
@@ -194,6 +199,9 @@ void FDCAN1_MSG_config(void)
 	TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
 	TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
 	TxHeader.MessageMarker = 0;
+
+	/* Start the FDCAN module */
+	HAL_FDCAN_Start(&hfdcan1);
 }
 
 
@@ -224,5 +232,29 @@ void Toggle_CAN_Data(void)
 		myTxData[6] = 0x00;
 		myTxData[7] = 0xFF;
 	}
+}
+
+/**
+  * @brief  Rx FIFO 0 callback.
+  * @param  hfdcan pointer to an FDCAN_HandleTypeDef structure that contains
+  *         the configuration information for the specified FDCAN.
+  * @param  RxFifo0ITs indicates which Rx FIFO 0 interrupts are signaled.
+  *         This parameter can be any combination of @arg FDCAN_Rx_Fifo0_Interrupts.
+  * @retval None
+  */
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
+{
+
+    /* Retrieve Rx messages from RX FIFO0 */
+    HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, myRxData);
+
+
+    /* Display LEDx */
+    if ((RxHeader.Identifier == 0x124) && (RxHeader.IdType == FDCAN_STANDARD_ID))
+    {
+    	print_to_serial("MSG 0x124 Custom MSG!");
+    	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+    }
+
 }
 /* USER CODE END 1 */

@@ -39,6 +39,7 @@ extern FDCAN_HandleTypeDef hfdcan1;
 FDCAN_TxHeaderTypeDef TxHeader;
 FDCAN_RxHeaderTypeDef RxHeader;
 uint8_t myTxData[8];
+uint8_t myRxData[8];
 
 /* USER CODE END Private defines */
 

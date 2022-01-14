@@ -191,7 +191,7 @@ void Task02_Init(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	  print_to_serial("Im task2!");
+	  //print_to_serial("Im task2!");
 	  osDelay(1000);
   }
   /* USER CODE END Task02_Init */
